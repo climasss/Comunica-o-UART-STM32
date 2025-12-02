@@ -68,7 +68,8 @@ int main(void)
 {
 
   /* USER CODE BEGIN 1 */
-
+	int theta = 80;
+	huart1.Init.BaudRate = 9600;
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -108,7 +109,6 @@ int main(void)
 	int epsilon = 50;
 	int zeta = 60;
 	int eta = 70;
-	int theta = 80;
 	int iota = 90;
 	float kappa = 123.4567f;  // latitude (exemplo)
 	float lambda = 765.4321f; // longitude (exemplo)
@@ -124,8 +124,10 @@ int main(void)
 	int phi = 1;
 	int chi = 2;
 
+	theta += 20;
+
 	// Chamada ao snprintf com a nova lista de variáveis
-	snprintf(buffer, sizeof(buffer),"%d, %d, %d, %d, %d, %d, %d, %d, %d, %.4f, %.4f, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d",
+	snprintf(buffer, sizeof(buffer),"%d, %d, %d, %d, %d, %d, %d, %d, %d, %.4f, %.4f, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d,\n",
 	         alpha,   // antigo byte1_inicial
 	         beta,    // antigo byte2_final
 	         gamma,   // Sensor.Velo1
@@ -150,7 +152,7 @@ int main(void)
 	         chi      // byte2_final
 	);
 
-	HAL_UART_Transmit(&huart1, buffer, 128, 1000); // Envia os 16 bytes
+	 HAL_UART_Transmit(&huart1, (uint8_t *)buffer, strlen(buffer), 1000); // Envia os 16 bytes
 	HAL_Delay(2000); // Aguarda 2 segundos antes de enviar novamente
     /* USER CODE BEGIN 3 */
   }
